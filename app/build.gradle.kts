@@ -65,10 +65,14 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Dependency injection
-    implementation(libs.androidx.dagger)
+
     kapt(libs.androidx.dagger.compiler)
 
     implementation(libs.timber)
+
+    // Multi module dependecies
+    implementation(project(":core"))
+//Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

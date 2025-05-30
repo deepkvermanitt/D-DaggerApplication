@@ -4,11 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,11 +15,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import com.deepkverma.core.data.local.DataBaseService
 import me.deepkverma.mydaggerapplication.App
-import me.deepkverma.mydaggerapplication.data.local.DataBaseService
-import me.deepkverma.mydaggerapplication.di.component.ActivityComponent
+ import me.deepkverma.mydaggerapplication.di.component.ActivityComponent
 import me.deepkverma.mydaggerapplication.di.component.DaggerActivityComponent
 import me.deepkverma.mydaggerapplication.di.module.ActivityModule
 import me.deepkverma.mydaggerapplication.ui.theme.MyDaggerApplicationTheme

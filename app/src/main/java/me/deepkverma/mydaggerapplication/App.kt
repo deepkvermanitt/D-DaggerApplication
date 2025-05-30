@@ -1,17 +1,14 @@
 package me.deepkverma.mydaggerapplication
 
 import android.app.Application
-import android.health.connect.datatypes.units.Length
 import android.widget.Toast
-import me.deepkverma.mydaggerapplication.data.local.DataBaseService
+import com.deepkverma.core.data.local.DataBaseService
 import me.deepkverma.mydaggerapplication.di.component.ApplicationComponent
 import me.deepkverma.mydaggerapplication.di.component.DaggerApplicationComponent
 import me.deepkverma.mydaggerapplication.di.module.ApplicationModule
 import me.deepkverma.mydaggerapplication.utils.MemoryLooger
 import timber.log.Timber
 import javax.inject.Inject
-import me.deepkverma.mydaggerapplication.App
-
 
 
 class App : Application() {

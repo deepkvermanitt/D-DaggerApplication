@@ -1,4 +1,4 @@
-package me.deepkverma.mydaggerapplication.di
+package com.deepkverma.core.di.qualifier
 
 import javax.inject.Qualifier
 

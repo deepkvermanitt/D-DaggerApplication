@@ -1,10 +1,9 @@
 package me.deepkverma.mydaggerapplication.di.module
 
-import android.app.Activity
+import com.deepkverma.core.di.qualifier.ActivityScope
 import dagger.Module
 import dagger.Provides
 import me.deepkverma.mydaggerapplication.App
-import me.deepkverma.mydaggerapplication.di.ActivityScope
 import me.deepkverma.mydaggerapplication.main.MainActivity
 import me.deepkverma.mydaggerapplication.main.MainViewModel
 import me.deepkverma.mydaggerapplication.main.MainViewModelFactory
