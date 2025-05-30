@@ -1,5 +1,6 @@
 package me.deepkverma.mydaggerapplication.di.component
 
+import me.deepkverma.mydaggerapplication.di.component.ApplicationComponent
 import com.deepkverma.core.di.qualifier.ActivityScope
 import dagger.Component
 import me.deepkverma.mydaggerapplication.di.module.ActivityModule
