@@ -72,6 +72,7 @@ dependencies {
 
     // Multi module dependecies
     implementation(project(":core"))
+    implementation(project(":feature-main"))
 //Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

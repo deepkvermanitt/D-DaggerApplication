@@ -1,4 +1,4 @@
-package me.deepkverma.mydaggerapplication.main
+package com.deepkverma.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.deepkverma.core.data.local.DataBaseService

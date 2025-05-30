@@ -1,6 +1,8 @@
-package me.deepkverma.mydaggerapplication.main
+package com.deepkverma.main
 
+import android.app.Application
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,49 +18,62 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import com.deepkverma.core.AppGraph
 import com.deepkverma.core.data.local.DataBaseService
-import me.deepkverma.mydaggerapplication.App
- import me.deepkverma.mydaggerapplication.di.component.ActivityComponent
-import me.deepkverma.mydaggerapplication.di.component.DaggerActivityComponent
-import me.deepkverma.mydaggerapplication.di.module.ActivityModule
-import me.deepkverma.mydaggerapplication.ui.theme.MyDaggerApplicationTheme
 import com.deepkverma.core.utils.MemoryLooger
+import com.deepkverma.main.di.component.ActivityComponent
+import com.deepkverma.main.di.component.DaggerActivityComponent
+import com.deepkverma.main.di.module.ActivityModule
+import com.deepkverma.main.ui.theme.MyDaggerApplicationTheme
+
 
 import javax.inject.Inject
+import com.deepkverma.main.viewmodel.*
 
 class MainActivity : ComponentActivity() {
 
+
+
     lateinit var activityComponent: ActivityComponent
-    @Inject
-    lateinit var databaseService: DataBaseService
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
+
 
     lateinit var mainViewModel: MainViewModel
 
     @Inject
-    lateinit var memoryLogger: MemoryLooger
-     fun getDependecies() {
-         activityComponent =   DaggerActivityComponent.builder()
-            .applicationComponent((application as App).applicationComponent)
-        .activityModule(ActivityModule(this))
-        .build()
+    lateinit var mainViewModelFactory: MainViewModelFactory
 
-         activityComponent.inject(this) // This should match `fun inject(activity: MainActivity)`
+
+    fun getDependecies(appGraph: AppGraph) {
+
+        activityComponent = DaggerActivityComponent.builder()
+            .activityModule(ActivityModule(this)).applicationComponent(appGraph.applicationComponent)
+            .build()
+
+        activityComponent.inject(this) // This should match `fun inject(activity: MainActivity)`
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        val appGraph by lazy { application as AppGraph }
+        val db by lazy { appGraph.appDatabaseService }
+        val logger by lazy { appGraph.appMemoryLogger }
         enableEdgeToEdge()
 
+        // ✅ Must call this BEFORE using any @Inject vars
+        getDependecies(appGraph)
+
+        // ✅ Now it's safe to use injected dependencies
+        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+
         setContent {
-            getDependecies()
-            mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
             MyDaggerApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android  ${databaseService.dbName}",
+                        name = "Android  ${db.dbName}",
                         modifier = Modifier.padding(innerPadding),
                         mainViewModel
                     )
@@ -69,11 +84,13 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier,mainViewModel: MainViewModel) {
+fun Greeting(name: String, modifier: Modifier = Modifier, mainViewModel: MainViewModel) {
     val message by mainViewModel.message.collectAsState()
 
-    Column(modifier = modifier.fillMaxSize(),
-            horizontalAlignment=Alignment.CenterHorizontally) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(text = message)
         Button(onClick = { mainViewModel.updateMessage() }) {
             Text("Update Message")

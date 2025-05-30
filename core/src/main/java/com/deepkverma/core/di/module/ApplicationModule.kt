@@ -1,4 +1,4 @@
-package me.deepkverma.mydaggerapplication.di.module
+package com.deepkverma.core.di.module
 
 import android.app.Application
 import android.content.Context
@@ -7,11 +7,10 @@ import com.deepkverma.core.di.qualifier.qualifiers
 import com.deepkverma.core.utils.MemoryLooger
 import dagger.Module
 import dagger.Provides
-import me.deepkverma.mydaggerapplication.App
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val application: App) {
+class ApplicationModule(private val application: Application) {
 
 
     @qualifiers.ApplicationContext
