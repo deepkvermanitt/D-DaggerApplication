@@ -22,7 +22,7 @@ import me.deepkverma.mydaggerapplication.App
 import me.deepkverma.mydaggerapplication.di.component.DaggerActivityComponent
 import me.deepkverma.mydaggerapplication.di.module.ActivityModule
 import me.deepkverma.mydaggerapplication.ui.theme.MyDaggerApplicationTheme
-import me.deepkverma.mydaggerapplication.utils.MemoryLooger
+import com.deepkverma.core.utils.MemoryLooger
 
 import javax.inject.Inject
 

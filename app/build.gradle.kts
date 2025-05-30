@@ -68,7 +68,7 @@ dependencies {
 
     kapt(libs.androidx.dagger.compiler)
 
-    implementation(libs.timber)
+
 
     // Multi module dependecies
     implementation(project(":core"))

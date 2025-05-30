@@ -4,7 +4,7 @@ import com.deepkverma.core.data.local.DataBaseService
 import dagger.Component
 import me.deepkverma.mydaggerapplication.App
 import me.deepkverma.mydaggerapplication.di.module.ApplicationModule
-import me.deepkverma.mydaggerapplication.utils.MemoryLooger
+import com.deepkverma.core.utils.MemoryLooger
 import javax.inject.Singleton
 
 @Singleton

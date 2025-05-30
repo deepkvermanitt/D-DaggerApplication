@@ -6,7 +6,7 @@ import com.deepkverma.core.data.local.DataBaseService
 import me.deepkverma.mydaggerapplication.di.component.ApplicationComponent
 import me.deepkverma.mydaggerapplication.di.component.DaggerApplicationComponent
 import me.deepkverma.mydaggerapplication.di.module.ApplicationModule
-import me.deepkverma.mydaggerapplication.utils.MemoryLooger
+import com.deepkverma.core.utils.MemoryLooger
 import timber.log.Timber
 import javax.inject.Inject
 

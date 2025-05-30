@@ -5,7 +5,7 @@ import com.deepkverma.core.di.qualifier.qualifiers
 import dagger.Module
 import dagger.Provides
 import me.deepkverma.mydaggerapplication.App
-import me.deepkverma.mydaggerapplication.utils.MemoryLooger
+import com.deepkverma.core.utils.MemoryLooger
 
 @Module
 class ApplicationModule(private val application: App) {

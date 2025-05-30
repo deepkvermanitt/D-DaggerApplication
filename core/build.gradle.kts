@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-
+    api(libs.timber)
     kapt(libs.androidx.dagger.compiler)
     api(libs.androidx.dagger)
     testImplementation(libs.junit)
