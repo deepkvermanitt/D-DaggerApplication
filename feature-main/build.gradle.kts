@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt) //./gradlew clean build --refresh-dependencies
+
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin") //
 }
 
 android {
@@ -47,6 +50,11 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(project(":core"))
+    implementation(project(":feature-user"))
+
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0") // ✅ runtime only
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -55,7 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    kapt(libs.androidx.dagger.compiler)
+//    kapt(libs.androidx.dagger.compiler)
     testImplementation(libs.mockito.core)
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")

@@ -6,12 +6,15 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MemoryLooger @Inject constructor() {
-    fun logD(message:String){
+class MemoryLogger @Inject constructor() : AppMemoryLogger {
+    @Override
+    override fun logD(message: String) {
 
         Timber.d(message)
     }
-    fun logI(message:String){
+
+    @Override
+    override fun logI(message: String) {
         Timber.i(message)
     }
 }

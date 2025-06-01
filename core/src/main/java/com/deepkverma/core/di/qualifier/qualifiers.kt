@@ -15,4 +15,12 @@ class qualifiers {
     @Qualifier
     @Retention
     annotation class DataBaseVersion
+
+    @Qualifier
+    @Retention
+    annotation class AppMemoryLogger
+
+    @Qualifier
+    @Retention
+    annotation class TestMemoryLogger
 }

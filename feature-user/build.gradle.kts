@@ -1,13 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt) //
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin") //
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
-    namespace = "com.deepkverma.core"
+    namespace = "com.deepkverma.feature_user"
     compileSdk = 35
 
     defaultConfig {
@@ -40,15 +39,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    api(libs.timber)
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
-//    kapt(libs.androidx.dagger.compiler)
-//    api(libs.androidx.dagger)
+    implementation(project(":core"))
+    // Optional if using @AndroidEntryPoint in fragments/activities in this module
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     testImplementation(libs.junit)
-
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
 }

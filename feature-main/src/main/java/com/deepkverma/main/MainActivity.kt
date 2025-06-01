@@ -15,68 +15,46 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModelProvider
-import com.deepkverma.core.AppGraph
-import com.deepkverma.core.data.local.DataBaseService
-import com.deepkverma.core.utils.MemoryLooger
-import com.deepkverma.main.di.component.ActivityComponent
-import com.deepkverma.main.di.component.DaggerActivityComponent
-import com.deepkverma.main.di.module.ActivityModule
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 import com.deepkverma.main.ui.theme.MyDaggerApplicationTheme
 
 
 import javax.inject.Inject
 import com.deepkverma.main.viewmodel.*
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.EntryPointAccessors
+import com.deepkverma.main.di.module.subcomponent.UserComponentEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-
-
-    lateinit var activityComponent: ActivityComponent
-
-
-    lateinit var mainViewModel: MainViewModel
-
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
-
-
-    fun getDependecies(appGraph: AppGraph) {
-
-        activityComponent = DaggerActivityComponent.builder()
-            .activityModule(ActivityModule(this)).applicationComponent(appGraph.applicationComponent)
-            .build()
-
-        activityComponent.inject(this) // This should match `fun inject(activity: MainActivity)`
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val entryPoint = EntryPointAccessors.fromApplication(application
+            ,
+            UserComponentEntryPoint::class.java
+        )
+        val userComponent = entryPoint.userComponentFactory().create()
+        userComponent.inject(this)
 
-        val appGraph by lazy { application as AppGraph }
-        val db by lazy { appGraph.appDatabaseService }
-        val logger by lazy { appGraph.appMemoryLogger }
         enableEdgeToEdge()
-
-        // ✅ Must call this BEFORE using any @Inject vars
-        getDependecies(appGraph)
-
-        // ✅ Now it's safe to use injected dependencies
-        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
         setContent {
 
             MyDaggerApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android  ${db.dbName}",
+                        name = "Android  ",
                         modifier = Modifier.padding(innerPadding),
-                        mainViewModel
-                    )
+
+                        )
                 }
             }
         }
@@ -84,15 +62,16 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier, mainViewModel: MainViewModel) {
-    val message by mainViewModel.message.collectAsState()
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    val viewModel: MainViewModel = hiltViewModel()
+    val message by viewModel.message.collectAsState()
 
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = message)
-        Button(onClick = { mainViewModel.updateMessage() }) {
+        Button(onClick = {viewModel.updateMessage() }) {
             Text("Update Message")
         }
 
